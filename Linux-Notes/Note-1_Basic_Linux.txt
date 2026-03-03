@@ -1,0 +1,109 @@
+1.	What is Linux?
+Linux is a open-source operating system used in :
+a.	Servers
+b.	Telecom networks
+c.	Cloud computing
+d.	Data centers
+e.	Supercomputers
+Linux is:
+a.	Free
+b.	Secure
+c.	Fast
+d.	Stable
+Examples of Linux uses:
+a.	Telecom servers
+b.	Banking servers
+c.	Websites
+
+2.	History of Linux
+Linux is developed by Linus Torvalds in 1991, and he developed Linux Kernel.
+
+3.	What is CentOS?
+CentOS is a Linux distribution and it is based on Red Hat, maintain by CentOS project.
+Used in:
+a.	Telecom companies
+b.	Data Centers
+c.	Enterprise servers
+
+4. Linux Vs Windows
+Feature				Linux				Windows
+Cost				Free				Paid
+Security			High				Medium
+Speed				Fast				Medium
+Virus				Very Low			High
+Customization		High				Low
+
+5. Linux Architecture
+i. Layer-1: Hardware
+CPU, RAM, Disk
+
+ii. Layer-2: Kernel
+Kernel is a heart of Linux
+Functions:
+Controls Hardware, Memory management, Process management
+
+iii. layer-3: Shell
+shell where we type command - ls, pwd, 
+
+iv. Layer-4: Application
+Browser, Editor, Tools.
+
+6. What is terminal?
+Where we run commands- ls,pwd, etc.
+
+7. Important Linux Terms
+Root User
+root = admin
+command- whoami   o/p-root
+
+Normal user
+whoami - suman
+
+Directory = Folder  -/home
+File = test.txt
+
+8. login to Linux
+login:
+password:
+
+9. Basic Terminal commands-
+pwd - print working directory  o/p-/home/suman
+ls - List file o/p- test1.txt, test2.txt
+cd - change directory   --- cd/home
+clear - to clean the screen
+Date - shows date
+whoami - shows user
+
+10. Linux Help command
+man command - man ls - shows manual
+ls --help - help command
+
+11. File creation
+touch file1.txt
+to check- ls
+
+12. directory Creation
+mkdir myfile
+to checl - ls
+
+13. remove file
+rm file1.txt
+
+14. Remove directory
+rmdir myfile
+
+15. copy file
+cp file1.txt file2.txt
+
+16. Move file
+mv file2.txt /home
+
+17. View file
+cat file1.txt
+
+18. Lab - Practice Excersise
+a. Create directory, and go inside it, and check
+b. Create files , check files , copy and move one file to another
+c. delete file and directory.
+
+

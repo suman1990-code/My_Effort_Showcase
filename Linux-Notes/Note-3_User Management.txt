@@ -1,0 +1,161 @@
+Linux User management
+
+1. Introduction
+In Linus:
+Every User has an account
+Every User has an UID
+Users belongs to groups
+Permissions are controled by users & groups
+
+In CentOS proper user management ensures:
+Security
+Access control
+Audit compilance
+
+2. Types of users in Linux
+a. Root user
+UID = 0
+Full control over system
+can delete anything
+check current user- whoami
+switch to root - su -
+
+b. System users
+Used by service like
+apache
+sql
+sshd
+check system users: cat /etc/passwd
+system users usally have UID < 1000(in CentOS)
+
+c. Normal Users:
+Created for login users
+UID >= 1000
+
+Example : useradd suman mondal
+
+3. Important  Files in User Management
+a. /etc/passwd : Stores Users information
+Example: suman mondal:x:1001:1001::/home/suman mondal:/bin/bash
+
+Structure: username:password:UID:GID:comment:home_directory:shell
+
+View file : cat /etc/passwd
+
+b. /etc/shadow : Stores encrypted password.
+View (root only) : cat /etc/shadow
+Example - suman mondal:$6$asdghjk1....:19800:0:99999:7:::
+
+c. /etc/group: Stores group information
+View : cat /etc/group
+
+4. Creating User (Professional Way)
+a. Basic user creation
+useradd suman mondal
+set password: passwd suman
+
+b. Create user with custom Home directory
+useradd -d /data/suman mondal suman
+
+c. Create user with specific UID
+useradd -u 1050 DevOps
+
+d. Create user with specific shell
+useradd -s /sbin/nologin testuser    # used for service account
+
+5. Modifying Users
+a. change username
+usermod -l newname oldname
+
+b. change home directory
+usermod -d /newhome suman mondal
+
+c. Lock user account
+usermod -L suman mondal
+
+d. Unlock user account
+usermod -u suman mondal
+
+e. Expire user
+chage -E 2026-12-31 suman mondal
+check expiry: chage -l suman.mondal
+
+6. Deleting user
+a. Delete user only
+userdel suman.mondal
+
+b. Delete user with home directory
+userdel -r suman.mondal  (Important in real server
+
+7. Group Management
+Group = collection of users, used to control permissions.
+a. Create group: groupadd DevOps
+
+b. Delete group : groupdel DevOps
+
+c. add user to group
+usermod -aG suman.mondal
+check groups: groups suman.mondal
+
+8. Primary Vs Secondary Group
+
+Primary: when a user is created get a primary group, It can have multiple secondary groups.
+Check : id suman.mondal
+output Example: uid=1001(suman.mondal) gid1001(suman.mondal) groups=1001(suman.mondal),1002(DevOps)
+
+9. Sudo Access (Very Important for job)
+instead of giving root access, we use sudo.
+install (if needed): yum install sudo
+
+add user to DevOps group: usermod -aG DevOps suman.mondal
+
+wheel group : usermod -aG wheel suman.mondal  # in CentOS wheel group gives sudo access.
+edit sudo file: visudo
+
+10. Password policies
+check password aging: chage -l suman.mondal
+
+force password change every 90 days: chage -M 90 suman.mondal
+
+minimum days: chage -m 7 suman.mondal
+
+warning days : chage -W 7 suman.mondal
+
+11. Switching user: su - suman.mondal
+
+switch without full login : su suman.mondal
+
+12. Monitoring logged-in users
+a. check logged-in users: who/whoami
+
+b. Detailed Info: w
+
+c. last login: last
+
+13. Professional lab practice
+
+Lab-1: Create a user and group , and add this user into that group, also give the password:
+	useradd ram.chandra
+	groupadd Python
+	useradd -G Python
+	passwd kolkata
+	
+Lab-2: check "ram.chandra" users group : id ram.chandra
+
+Lab-3: Lock "ram.chandra" account : usermod -L ram.chandra
+
+Lab-4: Set password expiry: chage -M 30 ram.chandra
+
+14. Real Production Lab Practice:
+
+Telecom Server:
+	20 Engineers
+	separate group for IMS_NOC
+	Separate group for IMS_Deployment
+Create: useradd IMS_NOC, useradd IMS_Deployment
+And also assign users accordingly
+
+This ensures security and role-based access control.
+
+
+

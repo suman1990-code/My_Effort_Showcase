@@ -1,0 +1,165 @@
+File Permission and Ownership
+
+1. Why File Permission are important?
+	a. Prevents unauthorized access.
+	b. Protect system files
+	c. Secure logs and configs
+	d. Control application access
+in Telecom and IMS servers, wrong permission can:
+	a. Stop service
+	b. Breaks logs
+	c. Cause security breach
+CentOS is widely used in enterprise environments under the CentOS Project ecosystem.
+
+2. Understanding Permission model.
+Every files in Linux has:
+	a. Owner(user)
+	b. Group
+	c. Others
+Three types of permissions:
+	a. r = Read
+	b. w = Write
+	c. e = Execute
+	
+3. Viewing permissions: ls -l
+Example of output: -rw-r--r-- 1 ram.chandra IMS_NOC 1200 mar 3 file1.txt
+Breakdown:
+	- = file type
+	rw- = owner permission
+	r-- = group permission
+	r-- = other permission
+	
+4. File Types:
+	First cheracter in ls -l:
+	symbol				Meaning
+	-					Regular file
+	d					Directory
+	l					Link
+	c					Character device
+	b 					Block device
+Example: ls -l /etc
+
+5. Permission meaning (Deep Understanding)
+	a. Read (r) : View file contents, List directory contents
+	b. Write (w) : Modify file, Create/Delete indide directory.
+	c. Execute (x) : Run scripts or binary, Enter Directory.
+	
+6. Numeric permission system (Very Important)
+Each permission has value:
+	r = 4
+	w = 2
+	x = 1
+Add values:
+	Permission				Value
+	rwx						7
+	rw-						6
+	r-x						5
+	r--						4
+	
+Example: chmod 777 file.sh
+	means:
+	Owner = 7 (rwx)
+	Group = 5 (r-x)
+	Others = 5 (r-x)
+	
+7. chmod Command (Change permission)
+	a. Numeric method: chmod 777 file1.sh, chmod 755 file2.sh
+	b. Symbolic method: 
+		add execute: chmod +x scripts1.sh
+		remove write : chmod g-w file2.txt
+		give full permisssion to owner only : chmod u=rwx,go= file1.txt
+		
+8. chown Command (Change owner)
+	syntax: chown user file_name
+Example:
+	chown ram.chandra file1.txt
+Change Owner and Group: chown ram.chandra:Devops file1.txt
+
+9. chgrp Command (Change Group)
+	chgrp DevOps file1.txt
+	
+10. Directory permission special rules: for directory
+	Permission				Meaning
+	r						List files
+	w						create/delete
+	x						Entire directory
+Example : chmod 750 IMS_NOC
+
+Meaning:
+	7 = owner full access
+	5 = group read & execute
+	0 = others no access
+	
+11. Special Permission (Advance Level): important for interviews
+		a. SUID (Set User ID) : Value = 4xxx
+		Example: chmod 4755 file
+		shows as : -rwsr-xr-x
+		Used in system binaries like: ls -l /usr/bin/passwd
+		
+		b. SGID (Set Group ID) : Value = 2xxx
+		Example: chmod 2755 directory
+		for directories: New file inherit group, Very usefull in shared team folder
+		
+		c. Sticky Bit: value = 1xxx
+		Example: chmod 1777 /shared
+		common example: ls -ld /tmp
+	You will see : drwxrwxrwt
+	
+	** Sticky Bit ensures User can only delete their own files.
+	
+12. umask (Default Permission)
+	check : umask
+	Example output: 0022
+Default file permission calculation:
+	file default : 666 - umask
+	directory default : 777 - umask
+	
+13. Access Control List (ACL) : Used when normal permission is not enough.
+	Enable ACL: yum install acl
+	Set ACL: setfacl -m u:ram.chandra:rwx file3.txt
+	Check ACL : getfacl file3.txt
+	
+14. Real Production Secnario:
+	Example: 
+	IMS log directory: /var/log/ims
+	Requirement: only IMS team can access, Other no access.
+	
+	Steps:
+		groupadd ims
+		chown root:ims /var/log/ims
+		chmod 770 /var/log/ims
+	Now: root full access, ims group full accesss, Others no accesss
+	
+15. Troubleshooting Scenario:
+	Problem-1: Permission denied
+	Example:
+	./scripts1.sh
+	permission denied   # Problem-1
+	chmod +x scripts1.sh  # solution
+	
+	Problem-2: Cannot write log
+	Check: ls -l log.txt 
+	Fix: chown appuser log.txt
+	
+	Problem-3 : Service not starting
+	Check: ls -ld /var/www/html
+	fix permission if needed.
+	
+16. Professional Lab practice: 
+	Lab-1: Create a directory, and create a file inside this directory
+		mkdir project
+		touch project/test1.txt
+		check permission, change permission
+		ls -l project
+	Lab-2: Change permission : chmod 700 project
+	
+	Lab-3: Create shared folder:
+		mkdir shared
+		chmod 1777 shared
+		
+	Lab-4: apply SGID:
+		chmod 2777 project
+	
+
+	
+

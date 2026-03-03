@@ -1,0 +1,209 @@
+Linux file system.
+1. What is Linux file system?
+The Linux file system is a way Linux organizes files and directories.
+
+in Linux everything is a file
+Files
+Directories
+Devices
+Process
+
+structure starts from / - this is called root directory
+
+2. Root directory structure
+/
+|- bin
+|- boot
+|- dev
+|- etc
+|- home
+|- lib
+|- media
+|- mnt
+|- opt
+|- proc
+|- root
+|- run
+|- sbin
+|- tmp
+|- usr
+|- var
+
+3. Important directories
+
+i. Root - This is the main directories, everything starts from here /
+Example- /home, /etc, /var
+command cd /
+
+ii. /home - This is the user directory
+Example- /home/suman, /home/myfile
+
+command - cd /home, ls
+
+iii. /root - home directory of root user.
+Example- /root
+command -  cd /root
+
+iv. /etc - System configaration files present here.
+Example- /etc/passwd, /etc/hosts, /etc/resolve.configaration
+command - cd /etc, ls
+
+v. /var - Variable data presents here.
+Contains:
+logs
+mail
+cache
+example- /var/log
+command - cd /var/log
+
+vi. /usr - User programs presents here.
+Contains:
+Software
+Libraries
+Example - /usr/bin
+command - cd /usr/bin
+
+vii. /bin - basic commands presents here.
+Contains:- ls, cp, mv, rm
+command - ls /bin
+
+viii. /sbin - system command presents here.
+Contains:
+reboot, shutdown, fdisk
+command- ls /sbin
+
+ix. /tmp - Temporary files, files deleted after reboot
+cd /tmp
+
+x. /boot - boot file present here.
+Contains:- Kernel, bootloder
+command-cd /boot
+
+xi. /dev - Device files present here.
+Example:-/dev/sda, /dev/sdb
+command - ls /dev
+
+xii. /proc - System information present here.
+Example - /proc/cpuinfo
+command - cat proc/cpuinfo
+
+xiii. /opt - optional software .
+Exaple - /opt/application
+
+xiv. /mnt - mount directory
+Example - /mnt/disk1
+
+xv. /media - usb devices.
+Example- media/usb
+
+4. Absolute path Vs Relative path
+Absolute path - full path
+Example- /home/suman/file1.txt
+command - cd /home/suman
+
+Relative path - short path 
+Command - cd /documents
+Example- Current directory- /home/suman
+							cd file1.txt
+							
+5. Special Directories - Current directories
+command- ls .
+cd .. - parent directiories
+cd ~ - home directory
+
+6. Important file commands
+ls 
+ls -l -> lonf format
+Example- -rw-r--r-- 1 root root 200 file1.txt
+
+Hidden file - ls -a  : hidden file starts with .
+Example - .bashrc
+
+Human readable - ls -lh
+
+7. File types in Linux
+regular file - file1.txt
+Directory example - test/
+
+Device file - /dev/sda
+link file - link.txt
+
+8. Wildcards - *  - ls *.txt
+
+? - ls file?.txt
+
+9. File viewing command
+cat - cat file1.txt
+cat -n file1.txt - Shows all lines with number
+cat -b file1.txt - shows number only non-blank lines
+cat -e file1.txt - shows $ at the end of each lines.
+cat -t file1.txt - shows tab
+cat -v file1.txt - Display non-printing cheracters.
+cat -ne file1.txt - line numbers and end of line$
+
+less - less file1.txt
+more - more file1.txt
+head - head file1.txt
+tail - tail file1.txt
+
+Live monitoring
+tail -f file1.txt
+
+10. File search command
+find - find /home -name file1.txt
+locate - locate file1.txt
+
+update database - updatedb
+
+11. Disk usage commands
+df = check disk space = df -head
+du = check directory size = du -sh /home
+
+12. File compression
+tar - for create and extract
+
+create = tar -cvf file1.tar folder
+extract = tar -xvf file1.tar
+
+gzip = used for compress file = gzip file1.txt
+unzip = used for extract = unzip file1.zip
+
+13. Profressional Practical lab
+
+lab-1
+create structure
+mkdir project
+cd project
+mkdir logs
+mkdir data
+mkdir backup
+
+lab-2
+Create files
+touch data1.txt
+touch data2.txt
+
+lab-3
+copy
+cp data1.txt backup
+
+lab-4
+check size = du -sh
+
+lab-5
+search = find /home -name data1.txt
+
+14. Important Real life example
+Telecom server example 
+log store in - /var/logs
+check logs = tail -f /var/log/messages
+
+
+
+
+
+
+
+
+ 
+
