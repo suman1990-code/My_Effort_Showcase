@@ -1,0 +1,64 @@
+[sumancse1990@mylab ~]$ mkdir mydir         # Create a Directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ cd mydir/	    # Go inside the directory
+[sumancse1990@mylab mydir]$ 
+[sumancse1990@mylab mydir]$ ls              # Check the directory content
+[sumancse1990@mylab mydir]$ 
+[sumancse1990@mylab mydir]$ cd ..	    # Move back to parent directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+mydir
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ rmdir mydir/        # Delete the directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ touch test1.txt	    # Create a text file
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+test1.txt
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ rm test1.txt        # Delete the text file
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+[sumancse1990@mylab ~]$
+[sumancse1990@mylab ~]$ mkdir myfile        # create a new Directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+myfile
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ cd myfile/	    # Go inside the directory
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ ls
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ touch file1.txt  # Create a file into this directory
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ ls
+file1.txt
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ vi file1.txt     # edit the file
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ cat file1.txt    # Display the file
+Kolkata
+New Delhi
+Mumbai
+Bengaluru
+[sumancse1990@mylab myfile]$ 
+[sumancse1990@mylab myfile]$ cd ..           # Move back to parent directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ rmdir myfile/	     # Delete the directory
+rmdir: failed to remove 'myfile/': Directory not empty   # The directory is not deleted as rmdir only works for empty directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ rm -r myfile/        # Delete directory including content
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ ls
+[sumancse1990@mylab ~]$ 
+
+
+
+
+
+
+
+
+

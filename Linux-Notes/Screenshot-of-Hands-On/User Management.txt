@@ -1,0 +1,224 @@
+Linux User management
+
+[sumancse1990@mylab ~]$ id
+uid=1000(sumancse1990) gid=1005(sumancse1990) groups=1005(sumancse1990),4(adm),39(video),1000(google-sudoers),1001(dip),1002(docker),1003(lxd),1004(plugdev) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ sudo -i
+[root@mylab ~]# 
+[root@mylab ~]# id
+uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[root@mylab ~]# 
+[root@mylab ~]# cd ..
+[root@mylab /]# 
+[root@mylab /]# cat /etc/passwd
+root:x:0:0:Super User:/root:/bin/bash
+bin:x:1:1:bin:/bin:/usr/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/usr/sbin/nologin
+adm:x:3:4:adm:/var/adm:/usr/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/usr/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/usr/sbin/nologin
+operator:x:11:0:operator:/root:/usr/sbin/nologin
+games:x:12:100:games:/usr/games:/usr/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/usr/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/usr/sbin/nologin
+tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+systemd-oom:x:999:999:systemd Userspace OOM Killer:/:/sbin/nologin
+dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+polkitd:x:114:114:User for polkitd:/:/sbin/nologin
+sssd:x:998:998:User for sssd:/run/sssd/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+systemd-coredump:x:996:996:systemd Core Dumper:/:/usr/sbin/nologin
+sumancse1990:x:1000:1005::/home/sumancse1990:/bin/bash
+[root@mylab /]# 
+[sumancse1990@mylab ~]$ sudo useradd ram.chandra
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ id
+uid=1000(sumancse1990) gid=1005(sumancse1990) groups=1005(sumancse1990),4(adm),39(video),1000(google-sudoers),1001(dip),1002(docker),1003(lxd),1004(plugdev) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ id ram.chandra
+uid=1001(ram.chandra) gid=1006(ram.chandra) groups=1006(ram.chandra)
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ cat /etc/passwd
+root:x:0:0:Super User:/root:/bin/bash
+bin:x:1:1:bin:/bin:
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ sudo cat /etc/shadow
+root:!*::0:99999:7:::
+bin:*:20186:0:99999:7:::
+daemon:*:20186:0:99999:7:::
+adm:*:20186:0:99999:7:::
+lp:*:20186:0:99999:7:::
+sync:*:20186:0:99999:7:::
+shutdown:*:20186:0:99999:7:::
+halt:*:20186:0:99999:7:::
+mail:*:20186:0:99999:7:::
+operator:*:20186:0:99999:7:::
+games:*:20186:0:99999:7:::
+ftp:*:20186:0:99999:7:::
+nobody:*:20186:0:99999:7:::
+tss:!:20494::::::
+systemd-oom:!:20494::::::
+dbus:!*:20494::::::
+polkitd:!:20494::::::
+sssd:!:20494::::::
+sshd:!:20494::::::
+chrony:!:20494::::::
+systemd-coredump:!*:20494::::::
+sumancse1990:*:20519:0:99999:7:::
+ram.chandra:!:20519:0:99999:7:::
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ cat /etc/group | grep ram.chandra
+ram.chandra:x:1006:
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ sudo useradd krishna.paul
+[sumancse1990@mylab ~]$
+[sumancse1990@mylab ~]$ sudo passwd krishna.paul
+New password: 
+BAD PASSWORD: The password contains the user name in some form
+Retype new password: 
+passwd: password updated successfully
+[sumancse1990@mylab ~]$
+[sumancse1990@mylab ~]$ su - krishna.paul
+Password: 
+[krishna.paul@mylab ~]$ 
+[krishna.paul@mylab ~]$ ls -a              # show hidden files
+.  ..  .bash_logout  .bash_profile  .bashrc
+[krishna.paul@mylab ~]$ 
+[sumancse1990@mylab ~]$ sudo -i		# switch to root user
+[root@mylab ~]# 
+[root@mylab ~]# useradd -d /data/gopal.saha gopal.saha		# create user with custom home directory
+[root@mylab ~]# 
+[root@mylab ~]# passwd gopal.saha
+New password: 
+BAD PASSWORD: The password contains the user name in some form
+Retype new password: 
+passwd: password updated successfully
+[root@mylab ~]# 
+[root@mylab ~]# ls -ld /data/gopal.saha
+drwx------. 2 gopal.saha gopal.saha 62 Mar  7 14:53 /data/gopal.saha
+[root@mylab ~]# 
+[root@mylab ~]# cat /etc/passwd | grep gopal.saha
+gopal.saha:x:1003:1008::/data/gopal.saha:/bin/bash
+[root@mylab ~]# 
+[root@mylab ~]# useradd -u 1050 sourik.mondal			# create user with specific UID
+[root@mylab ~]# ls -ld
+dr-xr-x---. 3 root root 140 Mar  7 14:06 .
+[root@mylab ~]# 
+[root@mylab ~]# id sourik.mondal
+uid=1050(sourik.mondal) gid=1050(sourik.mondal) groups=1050(sourik.mondal)
+[root@mylab ~]# 
+[root@mylab ~]# usermod -l gopal.kumar gopal.saha		# modifying user (changing user name)
+[root@mylab ~]# 
+[root@mylab ~]# id gopal.kumar
+uid=1003(gopal.kumar) gid=1008(gopal.saha) groups=1008(gopal.saha)
+[root@mylab ~]# 
+[root@mylab ~]# usermod -L gopal.kumar		# Lock the user gopal.kumar
+[root@mylab ~]# 
+[root@mylab ~]# cat /etc/shadow | grep gopal.kumar
+gopal.kumar:!$y$j9T$M7B9metpKmiRSekWc/BWp0$7.pZrCMsnD1lx9WMI.6/7o95WXPkBonhdvNJqvg4yI3:20519:0:99999:7:::   # ! = lock user
+[root@mylab ~]# 
+[root@mylab ~]# passwd -S gopal.kumar
+gopal.kumar L 2026-03-07 0 99999 7 -1          # L = lock user account
+[root@mylab ~]# 
+[root@mylab ~]# usermod -u 1003 gopal.kumar    # unlock user account
+usermod: no changes
+[root@mylab ~]# 
+[root@mylab ~]# passwd -u gopal.kumar
+passwd: password changed.
+[root@mylab ~]# grep gopal.kumar /etc/shadow
+gopal.kumar:$y$j9T$M7B9metpKmiRSekWc/BWp0$7.pZrCMsnD1lx9WMI.6/7o95WXPkBonhdvNJqvg4yI3:20519:0:99999:7:::
+[root@mylab ~]#
+[root@mylab ~]# cat /etc/passwd | grep gopal.kumar
+gopal.kumar:x:1003:1008::/data/gopal.saha:/bin/bash
+[root@mylab ~]#
+[root@mylab ~]# chage -E 2026-03-10 gopal.kumar		# user account expiry
+[root@mylab ~]# 
+[root@mylab ~]# chage -l gopal.kumar			# check user account expiry
+Last password change                                    : Mar 07, 2026
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : Mar 10, 2026
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7
+[root@mylab ~]# 
+[root@mylab ~]# cat /etc/passwd		# check user info
+root:x:0:0:Super User:/root:/bin/bash
+bin:x:1:1:bin:/bin:/usr/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/usr/sbin/nologin
+adm:x:3:4:adm:/var/adm:/usr/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/usr/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/usr/sbin/nologin
+operator:x:11:0:operator:/root:/usr/sbin/nologin
+games:x:12:100:games:/usr/games:/usr/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/usr/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/usr/sbin/nologin
+tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+systemd-oom:x:999:999:systemd Userspace OOM Killer:/:/sbin/nologin
+dbus:x:81:81:System Message Bus:/:/usr/sbin/nologin
+polkitd:x:114:114:User for polkitd:/:/sbin/nologin
+sssd:x:998:998:User for sssd:/run/sssd/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:997:chrony system user:/var/lib/chrony:/sbin/nologin
+systemd-coredump:x:996:996:systemd Core Dumper:/:/usr/sbin/nologin
+sumancse1990:x:1000:1005::/home/sumancse1990:/bin/bash
+ram.chandra:x:1001:1006::/home/ram.chandra:/bin/bash
+krishna.paul:x:1002:1007::/home/krishna.paul:/bin/bash
+sourik.mondal:x:1050:1050::/home/sourik.mondal:/bin/bash
+gopal.kumar:x:1003:1008::/data/gopal.saha:/bin/bash
+[root@mylab ~]# 
+[root@mylab ~]# userdel ram.chandra 		# remove the user account
+[root@mylab ~]# 
+[root@mylab ~]# userdel -r gopal.kumar		# remove user account with home directory (very important for real server)
+[root@mylab ~]#
+[root@mylab ~]# groupadd DevOps			# create a group
+[root@mylab ~]# 
+root@mylab ~]# usermod -aG DevOps sourik.mondal	# add user account inside DevOps group
+[root@mylab ~]# 
+[root@mylab ~]# id sourik.mondal
+uid=1050(sourik.mondal) gid=1050(sourik.mondal) groups=1050(sourik.mondal),1051(DevOps)
+[root@mylab ~]# 
+root@mylab ~]# groups sourik.mondal		# check groups
+sourik.mondal : sourik.mondal DevOps
+[root@mylab ~]#
+[sumancse1990@mylab ~]$ sudo chage -i sourik.mondal   	# give password aging
+Changing the aging information for sourik.mondal
+Enter the new value, or press ENTER for the default
+
+        Minimum Password Age [30]: 30
+        Maximum Password Age [60]: 60
+        Last Password Change (YYYY-MM-DD) [1970-01-08]: 2026-03-30
+        Password Expiration Warning [5]: 7
+        Password Inactive [3]: 3
+        Account Expiration Date (YYYY-MM-DD) [2026-10-10]: 2027-07-20
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ sudo chage -l sourik.mondal		# check password aging
+Last password change                                    : Mar 30, 2026
+Password expires                                        : May 29, 2026
+Password inactive                                       : Jun 01, 2026
+Account expires                                         : Jul 20, 2027
+Minimum number of days between password change          : 30
+Maximum number of days between password change          : 60
+Number of days of warning before password expires       : 7
+[sumancse1990@mylab ~]$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

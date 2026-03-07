@@ -1,0 +1,115 @@
+[sumancse1990@mylab ~]$ mkdir project  			# create a Directory
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ cd project/			# Move into the project directory
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ mkdir logs		# Create subdirectories inside project directory
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ mkdir data
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ mkdir backup
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ ls
+backup  data  logs
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ touch test1.txt		# Create two text files
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ touch test2.txt
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ ls
+backup  data  logs  test1.txt  test2.txt
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ cp test1.txt backup/	# Copy test1.txt file into backup directory
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ cd backup/		# move inside backup directory
+[sumancse1990@mylab backup]$ 
+[sumancse1990@mylab backup]$ ls
+test1.txt
+[sumancse1990@mylab backup]$ 
+[sumancse1990@mylab backup]$ du -sh			# Check the disk size " d = disk, u = usage, -s = summary, -h = human readable
+0       .
+[sumancse1990@mylab backup]$ 
+[sumancse1990@mylab backup]$ vi test1.txt 		# Edit the file using vi editor
+[sumancse1990@mylab backup]$ 
+[sumancse1990@mylab backup]$ du -sh
+4.0K    .
+[sumancse1990@mylab backup]$ 
+[sumancse1990@mylab backup]$ cd ..			# back to parent directory
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ ls
+backup  data  logs  test1.txt  test2.txt
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ find /home -name test1.txt 	# search test1.txt file
+/home/sumancse1990/project/backup/test1.txt
+/home/sumancse1990/project/test1.txt
+[sumancse1990@mylab project]$ 
+[sumancse1990@mylab project]$ tail -f /var/log/messages         # Monitor system logs in real time
+tail: cannot open '/var/log/messages' for reading: Permission denied   # Normal user cannot read system log files
+tail: no files remaining
+[sumancse1990@mylab project]$ sudo tail -f /var/log/messages 	       # Superuser can access system log files
+Mar  7 06:00:50 mylab systemd[1]: Starting systemd-hostnamed.service - Hostname Service...
+Mar  7 06:00:50 mylab systemd[1]: Started systemd-hostnamed.service - Hostname Service.
+Mar  7 06:01:20 mylab systemd[1]: systemd-hostnamed.service: Deactivated successfully.
+Mar  7 06:02:40 mylab google_guest_agent[1113]: Invalid user "sumancse1990" or key "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKctWowXw9RBOGxIikfvn+yJiVjtbtTA564Yqt4T0R7s+ORmXmVP0UWZjir92thh0tFcrl5r1ZsA8Md0nD2RNBQ= google-ssh {\"userName\":\"sumancse1990@gmail.com\",\"expireOn\":\"2026-03-07T06:02:31+0000\"}" in metadata: invalid ssh key entry - expired key.
+Mar  7 06:02:40 mylab google_guest_agent[1113]: Invalid user "sumancse1990" or key "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAGu2n/2wIRFN1y9Y2HHQ6k7fdtwM0WydsX/xjJM3Em7ZIrVH1TpuJUR4BvISNc4aFtUnCC0IBMzbEZMT30Rzw3sEpbV6265nX3B3OYXKUoU9mM8/9uQYROTa3ji4KbdYDGH8cpRIjdaKo2meW9dmQTx6NIgL15BHjZIp3yat6wpgHHeYSOqP9bmyjRb24uSfkIDOHuDS0cAn++EI3WvcMkwG5NIBOd5ZELnuT7g1v9JQRseh0/WxJ6XAXCd7HQuPtAGqaNrLctIaEGuVYyAzlNSTHKSn/zCsBBivvHT4zQJmeyVBLvU5ggOJMa1fyvbDxSsE9zwo+CE5w4oXE3W+YIs= google-ssh {\"userName\":\"sumancse1990@gmail.com\",\"expireOn\":\"2026-03-07T06:02:38+0000\"}" in metadata: invalid ssh key entry - expired key.
+Mar  7 06:02:53 mylab systemd[5109]: Starting grub-boot-success.service - Mark boot as successful...
+Mar  7 06:02:53 mylab systemd[5109]: Finished grub-boot-success.service - Mark boot as successful.
+Mar  7 06:05:53 mylab systemd[5109]: Created slice background.slice - User Background Tasks Slice.
+Mar  7 06:05:53 mylab systemd[5109]: Starting systemd-tmpfiles-clean.service - Cleanup of User's Temporary Files and Directories...
+Mar  7 06:05:53 mylab systemd[5109]: Finished systemd-tmpfiles-clean.service - Cleanup of User's Temporary Files and Directories.
+Mar  7 06:09:23 mylab systemd[1]: Starting gce-workload-cert-refresh.service - GCE Workload Certificate refresh...
+Mar  7 06:09:23 mylab gce_workload_cert_refresh[5278]: 2026/03/07 06:09:23: Done
+Mar  7 06:09:23 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+Mar  7 06:09:23 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+
+[sumancse1990@mylab log]$ sudo vi sipserver.log			# Create and edit SIP server log file inside /var/log
+[sumancse1990@mylab log]$ 
+[sumancse1990@mylab log]$ cat sipserver.log 			# display the file sipserver.log		
+2026-03-07 10:30:21 INFO  SIP REGISTER request from sip:9876543210@ims.operator.com
+2026-03-07 10:30:22 INFO  Authentication successful for user 9876543210
+2026-03-07 10:31:10 INFO  INVITE request received for call session
+2026-03-07 10:31:12 INFO  200 OK sent to UE
+2026-03-07 10:31:45 ERROR SIP 403 Forbidden - Authentication failed
+2026-03-07 10:32:02 WARNING Packet delay detected
+[sumancse1990@mylab log]$ 
+[sumancse1990@mylab log]$ grep error sipserver.log   		# Search ERROR messages in the log file
+[sumancse1990@mylab log]$ 
+[sumancse1990@mylab log]$ grep ERROR sipserver.log 		# Search ERROR messages in the log file
+2026-03-07 10:31:45 ERROR SIP 403 Forbidden - Authentication failed
+[sumancse1990@mylab log]$ 
+[sumancse1990@mylab log]$ cat sipserver.log | grep WARNING
+2026-03-07 10:32:02 WARNING Packet delay detected
+[sumancse1990@mylab log]$ 
+[sumancse1990@mylab log]$ grep REGISTER sipserver.log 
+2026-03-07 10:30:21 INFO  SIP REGISTER request from sip:9876543210@ims.operator.com
+[sumancse1990@mylab /]$ ls
+afs  bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+[sumancse1990@mylab /]$ 
+[sumancse1990@mylab /]$ tail /var/log/messages 			# normal user cant access the messages file
+tail: cannot open '/var/log/messages' for reading: Permission denied
+[sumancse1990@mylab /]$ 
+[sumancse1990@mylab /]$ sudo tail /var/log/messages             # super user can access the file
+Mar  7 06:29:17 mylab systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.
+Mar  7 06:29:48 mylab systemd[1]: Starting gce-workload-cert-refresh.service - GCE Workload Certificate refresh...
+Mar  7 06:29:49 mylab gce_workload_cert_refresh[5624]: 2026/03/07 06:29:49: Done
+Mar  7 06:29:49 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+Mar  7 06:29:49 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+Mar  7 06:39:13 mylab sumancse1990[5728]: Successfull
+Mar  7 06:39:53 mylab systemd[1]: Starting gce-workload-cert-refresh.service - GCE Workload Certificate refresh...
+Mar  7 06:39:53 mylab gce_workload_cert_refresh[5742]: 2026/03/07 06:39:53: Done
+Mar  7 06:39:53 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+Mar  7 06:39:53 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+[sumancse1990@mylab /]$ 
+[sumancse1990@mylab /]$ logger " Authentication successful "			# Write a custom message to system log file
+[sumancse1990@mylab /]$ 
+[sumancse1990@mylab /]$ sudo tail /var/log/messages 
+Mar  7 06:29:48 mylab systemd[1]: Starting gce-workload-cert-refresh.service - GCE Workload Certificate refresh...
+Mar  7 06:29:49 mylab gce_workload_cert_refresh[5624]: 2026/03/07 06:29:49: Done
+Mar  7 06:29:49 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+Mar  7 06:29:49 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+Mar  7 06:39:13 mylab sumancse1990[5728]: Successfull
+Mar  7 06:39:53 mylab systemd[1]: Starting gce-workload-cert-refresh.service - GCE Workload Certificate refresh...
+Mar  7 06:39:53 mylab gce_workload_cert_refresh[5742]: 2026/03/07 06:39:53: Done
+Mar  7 06:39:53 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+Mar  7 06:39:53 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+Mar  7 06:44:32 mylab sumancse1990[5807]: Authentication successful             # this proves logger command worked.
+[sumancse1990@mylab /]$ 

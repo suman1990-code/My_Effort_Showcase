@@ -1,0 +1,13 @@
+[sumancse1990@mylab ~]$ pwd       # To check the present working Directory
+/home/sumancse1990
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ whoami    # To check the Current user
+sumancse1990
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ date	  # Check current date & Time
+Tue Mar  3 05:24:35 PM UTC 2026
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ uptime	  # To check VM uptime, cpu load
+ 17:24:42 up  1:13,  2 users,  load average: 0.04, 0.03, 0.00
+[sumancse1990@mylab ~]$ 
+[sumancse1990@mylab ~]$ 
