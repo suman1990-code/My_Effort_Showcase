@@ -1,0 +1,126 @@
+8. Package Management in Linux (RPM, YUM, DNF)
+
+1. What is package?
+A package is a composed file that contains :
+	a. software program
+	b. configaration file
+	c. libraries
+	d. documentations
+Example of software package:
+	a. httpd (Apache web server)
+	b. vim
+	c. htop
+	d. git
+In Red hat /CentOS /Rockey Linux, packages use RPM format.
+Example:-
+	vim-8.2-1.e19.x86_64.rpm
+	
+2. What is RPM?
+RPM is Red hat package manager, and it is used to:
+	a. Install software
+	b. Remove software
+	c. Quary installed packages
+	d. Verify packages
+Basic syntax:- rpm [option] package_name
+
+3. Install a Package:
+Example:- 
+	sudo rpm -ivh package.rpm
+	i = install
+	v = verbose
+	h = show progress
+Example:- sudo rpm -ivh htop-3.2.rpm
+
+4. Check install packages.
+	Example:- rpm -qa
+	Example output:-
+		vim
+		bash
+		kernel
+		openssh
+	To search a package:
+	Example:- rpm -qa | grep vim
+	
+5. Package Information:-
+	Example:- rpm -qi vim
+	Example output:-
+		Name : vim
+		Version : 8.2
+		Release : 1
+		Architecture : x86_64
+		
+6. Check files installed by package
+	Example:- rpm -ql vim
+	Example output:-
+		/usr/bin/vim
+		/usr/share/vim
+		/etc/vimrc
+		
+7. Remove a package
+	Example:- sudo rpm -e vim
+	Problem:- rpm does not resolve dependencies automatically.
+	Example error:- 
+		error : failed dependencies
+	Thats why YUM / DNF is used
+	
+8. What is YUM?
+	Yellowdog updater modified, its automatically:
+	a. install package
+	b. resolves dependencies
+	c. downloads packages from repositories
+	
+9. Install package using YUM.
+	Example:- sudo yum install httpd
+	system will automatically install:
+		a. httpd
+		b. dependencies
+		c. required libraries
+		
+10. Remove package :- sudo yum remove httpd
+
+11. Search package :- yum search nginx
+
+12. Package information:- yum info nginx
+
+13. Update packages.
+	Single packages :- sudo yum update vim
+	Update all packages:- sudo yum update
+	
+14. DNF (new version of YUM)
+	Modern Linux (RHEL8, RHEL9, Rockey, AlmaLinux) use DNF
+	
+	DNF works same as YUM.
+	Example:- 
+	install packages:- sudo dnf install git
+	search packages :- dnf search git
+	update system:- sudo dnf update
+	
+15. Check enabled repositories:
+	Example: dnf repolist
+	Example output:-
+		baseos
+		appstream
+		extras
+		
+16. Real life server Example:
+	Problem:- Developer needs git on server
+	Admin install:- sudo dnf install git
+	verify installation :- git --version
+	
+17. Real Lab Practice:
+	Step-1: search package: - dnf search htop
+	Step-2: Install package:- sudo dnf install htop
+	Step-3: Run program:- htop
+	Step-4: Remove package:- sudo dnf remove htop
+	
+18. Important Interview command:
+	| Command         | Purpose                 |
+| --------------- | ----------------------- |
+| rpm -qa         | list installed packages |
+| rpm -qi pkg     | package info            |
+| rpm -ql pkg     | package files           |
+| yum install pkg | install software        |
+| yum remove pkg  | remove software         |
+| dnf update      | update system           |
+
+		

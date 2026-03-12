@@ -1,0 +1,99 @@
+Note-9 System Services & Systemctl (systemd)
+
+1. What is Service?
+A service is a program that runs in the background and provides functionality to the system.
+	Examples:-
+		Service 							Purpose
+		sshd								Remote login via ssh
+		httpd								Web Server
+		Crond								Schedule tasks
+		firewalld							Firewall Management
+	These services start when the system boots.
+	
+2. What is systemd?
+systemd is the service manager in modern Linux distribution like:
+	a. RHEL
+	b. Rockey Linux
+	c. AlmaLinux
+	d. CentOS
+	e. Ubuntu (new versions)
+	e. Fedora
+	
+	It manages:
+		a. system serbices
+		b. startup processes
+		c. background tasks
+		
+	Command used :- systemctl
+	
+3. Check Service status:
+Example:- check ssh service
+	systemctl status sshd
+Exaple output:-
+	sshd service - openssh server daemon
+		Active: active (running)
+		
+4. Start a service:
+Example:- sudo systemctl start httpd 
+	this starts the Apache web server
+	
+5. Stop a service :- 
+Example:- sudo systemctl stop httpd
+	this stop the service
+	
+6. Restart a service
+Example:- sudo systemctl restart httpd
+	Used when configaration changes
+	
+7. Reload a service: - reload service without stoping the service.
+	sudo systemctl reload httpd.
+	
+8. Enable service at boot.
+Enable service to start automatically when system boot.
+	sudo systemctl enable httpd
+	
+9. Disable service at boot
+	sudo systemctl disable httpd
+	
+10. Check all running services:- systemctl list-units --type=service
+
+11. Check enabled services :- systemctl list-unit-files --type=service
+
+12. Check failed service :- systemctl --failed  # useful for troubleshooting server problems
+
+13. Check boot target: Targets are similar to runlevels
+	check default target:- systemctl get-default
+	example output:- graphical.target
+	
+14. Change Boot targets: switch to command line mode
+	sudo systemctl set-default multi-user.target
+	
+	switch to GUI mode:
+		sudo systemctl set-default graphical.target
+		
+15. Real-Life example:-
+	Problem:
+		Web server is not accessible
+		
+		Admin checks service:- systemctl status httpd
+		if stopped: sudo systemctl start httpd
+		Enable service permanently: sudo systemctl enable httpd
+		
+		
+16. Real Lab Practice.
+	Step-1: Install Apache : sudo dnf install httpd
+	Step-2: start service : sudo systemctl start httpd
+	Step-3: Enable service : sudo systemctl enable httpd
+	Step-4: Check status : systemctl status httpd
+	Step-5: Stop service : sudo systemctl stop httpd
+	
+17. Important command for interview.
+	| Command                     | Purpose         |
+| --------------------------- | --------------- |
+| `systemctl start service`   | start service   |
+| `systemctl stop service`    | stop service    |
+| `systemctl restart service` | restart service |
+| `systemctl enable service`  | enable at boot  |
+| `systemctl disable service` | disable at boot |
+| `systemctl status service`  | check status    |
+

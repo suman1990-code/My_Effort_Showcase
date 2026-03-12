@@ -1,0 +1,134 @@
+Note-5. FileSystem & Management (Very Important) Professional Level
+This topic is very important for Linux system admin, DevOps, and Telecom server jobs because servers handle disks, partition, and storage.
+
+1. What is FileSystem?
+A File System is the way Linus stores and organizes data on disk.
+	Example FileSystem on Linux
+		a. ext4 = Most common Linux Filesystem.
+		b. xfs = Used in enterprise servers.
+		c. vfat = For USB Drives.
+		d. ntfs = Windows Filesystem.
+Check filesystem = df -Th
+Example output: Filesystem		Type		Size		Used		Avail		Mounted on
+				/dev/sda1		xfs			40G			5G			35G			/
+2. Check Disk Space: check disk usage
+
+df -h 	# df = disk free , -h = human readable
+
+Example: FileSystem			Size			Used			Avail			Use%
+		  /dev/sda1			30G				10G				20G				33.3%
+
+3. Check Folder Size
+	
+	du -sh /folder_name
+Example: du -sh /home         # du = disk usage(how much disk space files/directories use), -s = summary, -h = human readable
+
+Output: 2.5G /home
+
+4. List Block Devices
+lsblk
+
+Example:	NAME			MAJ:MIN			RM			SIZE			RO			TYPE			MOUNTPOINT
+			sda				8:0				0			40G				0			disk
+			 |-sda1			8:1				0			20G				0			part			/
+			 |-sda2			8:2				0			15G				0			part			/home
+			 |-sda3			8:3				0			5G				0			part			/data
+			 
+NAME = disk or partition name
+
+MAJ:MIN = Major & Minor device number
+
+RM = Removable device (0 = no)
+
+SIZE = size od disk/partition
+
+RO = Read-Only status
+
+TYPE = disk / partition
+
+MOUNTPOINT = where the filesystem is mounted.
+			
+5. Check disk partition
+fdisk -l 
+Shows: disk size, partitions, filesystem type
+
+6. Mount Concept (very important)
+In Linux to access a disk we must mount it.
+	Example: /dev/sdb1 → mount → /data
+	
+Command: mount /dev/sdb1 /data
+
+Check mounted Disk: mount | grep sdb1
+
+7. Unmount Disk
+umount /data  or   unmount /dev/sdb1
+
+8. Format Disk.
+create filesystem
+for ext4 : mkfs.ext4 /dev/sda1
+
+for xfs :  mkfs.xfs /dev/sda1
+
+** Formatting deleted all the data.
+
+9. Permanent Mount (Very Important)
+
+	File Used :/etc/fstab
+	Open File: vi /etc/fstab
+	Example Entry: /dev/sdb1	/data	ext4	defaults	0	0
+	
+	Check configaration : mount -a
+	
+10. Create Partition (Basic Idea)
+	Use: fdisk /dev/sda
+	Steps inside fdisk:
+	a. n = new partition
+	b. p = primary
+	c. w = write changes
+	
+11. Real-Life Lab - Disk full issue (Production server scenario)
+	Situation: A production server suddenly becomes slow because the disk is full.
+	so, what Linux admin will do:
+	a. Check disk usage
+	b. idetify the large directory
+	c. find large log files 
+	d. Clean unnecessary logs
+	
+a. Check disk usage: df -h
+	Example output: FileSystem		Size		Used		Avail		Use%
+					/dev/sdb2		40G			39G			1G			98%
+	So, Disk is 98% full
+b. find which directory is large: du -sh /*
+	Example:	2G  /home
+				25G /var
+				1G	/etc
+	As, we can see /var is very large
+c. Check log directory: du -sh /var/log/*
+	Example: 23G	/var/log/messages
+			 1.5G		/var/log/secure
+			 500M		/var/log/cron
+	so, Problem found messages log file is huge.
+d. Check log content
+	view last lines of log : tail -f /var/log/messages
+	Example logs: 
+		2026-03-08 10:20:10 INFO SIP request received
+		2026-03-08 10:20:11 ERROR Authentication failed
+		2026-03-08 10:20:12 WARNING Packet loss detected
+e. clear log file
+	safely empty the log file: > /var/log/messages 		or			truncate -s 0 /var/log/messages
+f. Verify disk space again: df -h
+	Now, output:
+	Filesystem      Size  Used Avail Use%
+	/dev/sda1        40G   18G   22G   45%
+	
+finally disk-space is recover.
+					
+
+
+
+
+
+
+
+
+

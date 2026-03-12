@@ -1,0 +1,122 @@
+10. Linux Networking Basics
+
+Networking is very important for Linux administrators, because server communicate over a network.
+	Example:
+		a. Web server
+		b. Database server
+		c. Application server
+	All communicate using IP Address and network interface
+	
+1. What is IP Address?
+An IP-Address isetifies a system on a network.\
+Example:- 192.168.1.10
+
+	Types of IP Address: Private IP and Public IP 
+		Types					Example
+		Private IP 				192.168.1.10
+		Public IP				8.8.8.8
+		
+2. Check IP Address:
+	command: ip addr
+Example output:
+	2: ens160: <BROADCAST,MULTICAST,UP>
+	inet 192.168.1.10/24
+	
+	Meaning:
+	a. ens160: network interface
+	b. 192.168.1.10 : system IP Address
+	
+	command : ip a
+	
+3. Check Network Interfaces:
+	command:
+		ip link
+		Example output:
+		lo
+		ens160
+		
+	Interface				Meaning
+	lo						loopback
+	ens160					network card
+	
+4. Test connectivity:
+Use ping
+	Example: ping google.com
+	Example output:
+	64 bytes from google.com
+	Stop ping: CTRL + C
+	
+5. Check routing table:
+	command: ip route
+	Example:
+		default via 192.168.1.1 dev ens160
+	Meaning : 
+		192.168.1.1 = gateway
+		
+6. Check open port:
+	command:
+		ss -tuln
+	Example output:
+		tcp LISTEN 0 128 0.0.0.0:22
+	Meaning : port 22 is open for SSH.
+	
+7. Check network connections:
+	Old command:
+		netstat -tulnp
+	new command
+		ss -tulnp
+	shows:
+		a. Listen port
+		b. services
+		c. connections
+		
+8. Check Hostname
+	command: hostname
+	Example output: mylab
+	
+9. Change Hostname:
+	For Temporary change:
+		sudo hostname newserver
+	for Permanent change
+		sudo hostnamectl set-hostname newserver
+		
+	Check: hostnamectl
+	
+10. Network manager command: Modern Linux uses NetworkManager
+	command: nmcli
+	
+	check connection: nmcli connection show 
+	
+	check device status: nmcli device status
+	
+11. Restart Network Service
+	sudo systemctl restart NetworkManager
+	
+12. real-Life Example : Server Issue
+	Problem: the server can not access internet
+	
+	Admin checks:
+		Step-1: Check IP: ip addr
+		Step-2: Check gateway : ip route
+		Step-3: Test connectivity : ping 8.8.8.8
+	If ping works = internet ok
+	else ping not work = network issue
+	
+13. Real Lab Practice:
+	Step-1: check ip : ip addr
+	Step-2: check hostname : hostnamectl
+	Step-3: ping gateway : ping 192.168.1.1
+	Step-4: check open port : ss -tuln
+	
+	
+14. Important Interview command:
+	| Command       | Purpose           |
+| ------------- | ----------------- |
+| `ip addr`     | show IP           |
+| `ip route`    | show gateway      |
+| `ping`        | test connectivity |
+| `ss -tuln`    | open ports        |
+| `hostnamectl` | manage hostname   |
+| `nmcli`       | network manager   |
+
+		

@@ -1,0 +1,78 @@
+6. Logical Volume Management (LVM)
+
+1. What is LVM?
+LVM allows Linux administrators to manage disk storage dynamically.
+
+Normal Partition problem
+	a. Fixed size
+	b. Hard to extend
+LVM Solution:-
+	a. Easy to increase disk space.
+	b. combine multiple disks.
+	c. Flexible Storage management
+Example:-
+Disk-> Partition-> LVM-> Filesystem-> Mount
+
+2. LVM Architecture
+there are 3layers
+	a. Physical Volume (PV):- Actual disk or partition.
+	Example:-
+	/dev/sdb1
+	/dev/sdc1
+	
+Create PV:-
+	pvcreate /dev/sdb1
+check PV:- pvs
+
+	b. Volume Group (VG):- Group of physical volume.
+	Example:- 
+		VG = storage_vg
+Create VG:- 
+	vgcreate storage_vg /dev/sdb1
+Check VG :- vgs
+
+	c. Logical Volume (LV):-Virtual partition created from VG.
+	Example:- 
+	LV = data_lv
+Create LV:
+	lvcreate -L 10G -n data_lv storage_vg
+Check LV:- lvs
+
+3. Create Filesystem on LV:-
+mkfs.ext4 /dev/storage_vg/data_lv
+
+4. Mount Logical Volume:-
+mkdir /data
+mount /dev/storage_vg/data_lv /data
+	Check:- df -h
+	
+5. Extend Disk:- as example increase disk size by 5GB
+	Example:-
+	lvextend -L +5G /dev/storage_vg/data_lv
+Resize filesystem:-
+	resize2fs /dev/storage_vg/data_lv
+	
+Now disk size is increased without reboot
+
+6. Real-life example:- Telecom/ Application serverdisk becomes full.
+old partion system need downtime.
+
+with LVM:-
+	a. add new disk
+	b. pvcreate /dev/sdc
+	c. vgextend storage_vg /dev/sdc
+	d. lvextend -L +20G /dev/storage_vg/data_lv
+	e. resize2fs
+	
+** Disk increased without stoping application.
+
+7. Important LVM Command
+	pvs			show physical volumes
+	vgs			show volume groups
+	lvs			show logical volumes
+	pvcreate	create physical volume
+	vgcreate	create volume group
+	lvcreate	create logical volume
+	lvextend	increase volume
+	lvremove	delete logical volume
+

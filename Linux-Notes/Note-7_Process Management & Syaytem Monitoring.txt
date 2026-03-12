@@ -1,0 +1,99 @@
+7. Process Management & System Monitoring
+
+1. What is Process?
+A process is a running instance of a programe.
+Example:-
+when we run vim, firefox, or ping, Linux creates a process.
+	Each process has:
+		a. PID - process ID
+		b. PPID - Parent process ID.
+		c. USER
+		d. CPU & Memory usage
+	Example:- ps
+	PID			TTY			TIME			CMD
+	1023		pts/0		00.00			bash
+	1205		pts/0		00.01			vim
+	
+2. Check Running process:-
+	a. ps command :- shows current running process
+	Details view:- ps -ef
+	important columns:-
+	columns					Meaning
+	UID						User running process
+	PID						Process ID
+	PPID					Parent process ID
+	CMD						command
+	
+	b. top command :- shows live system process and resource usage -top
+		Information shows:-
+		i. CPU usage
+		ii. Memory usage
+		iii. Running process
+	* press q to exit
+	
+	c. htop command :- better interface than top.
+	install :- sudo yum install htop
+	run :- htop
+	
+3. Process States:- 
+	State 					Meaning
+	R						running
+	S						sleeping
+	T 						stopped
+	Z						zombie
+	
+Example for checking :- ps aux
+
+4. Foreground & Background process :-
+	Foreground :- programe runs in terminal
+	Example:- sleep 100		# Terminal is busy
+	
+	Background :- Add & :-sleep 100 &
+	Example of output :- [1] 2345
+						  2345 = PID
+						  
+5. Jobs command :- shows background jobs :- jobs
+	Example:-
+	[1]+ Running sleep 100 &
+	
+6. Bring process to Foreground:- fg %1
+
+7. Send process to Background:- CTRL + Z then bg
+
+8. Kill a process:- kill by PID
+	find PID
+	ps -ef | grep firefox
+	
+	Kill process:- kill 1234
+	
+	Force Kill :- kill -9 1235
+	
+9. Kill by name:- 
+	pkill firefox   or  killall firefox
+	
+10. Check system resource usage
+	a. CPU & MEMORY :- top
+	b. MEMORY :- free -m
+	c. DISK USAGE :- df -has
+	
+	
+11. Real life example:- problem :- Server is slow
+	Admin checks:- top
+	finds process using 90% CPU
+	
+	apply Kill process :- kill -9 PID
+	now, Servers become normal
+	
+12. Real-Life Lab Practice :-
+	Step-1: Run a Process
+		sleep 200 & 
+	step-2: Check process
+		ps -ef | grep sleep
+	step-3: Kill process
+		kill PID
+	step-4: verify
+		ps -ef | grep sleep
+now, process should disappear.
+
+	
+	
