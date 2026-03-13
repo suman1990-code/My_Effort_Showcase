@@ -1,0 +1,145 @@
+11. Linux Firewall Management (firewlld)
+
+A firewall protect the system by controling incoming and outgoing network traffic.
+It allows or blocks connections based on rules.
+
+Example:
+	a. Allow SSH (Port 22)
+	b. Allow HTTP (Port 80)
+	c. Block other Ports
+	
+Modern Linux uses firewalld
+
+1. What is firewalld?
+firewlld is a firewall management tool used in:
+	a. RHEl
+	b. Rockey Linux
+	c. Alma Linux
+	d. CentOS
+	e. Fedora
+	
+It manages firewall rules dynamically.
+
+Main Command: firewalld-cmd
+
+2. Check firewall status
+
+	sudo systemctl status firewalld 
+	
+	Example output: 
+		Active: active (running)
+		
+	if not running:
+		sudo systemctl start firewalld
+		
+	Enable at boot:
+		sudo systemctl enable firewalld
+		
+3. Check firewall state:
+	sudo firewall-cmd --state
+	
+	Example output: running
+	
+4. Check active zones:
+	Zones define the trust level of network connections.
+		sudo firewall-cmd --get-active-zones
+		
+	Example output:
+		Public
+			interfaces: ens160
+			
+5. Check allowed services:
+		sudo firewall-cmd --list-services
+		
+	Example output:
+		ssh dhcpv6-client
+		* meaning only this service are allowed
+		
+6. Allow a service: allow http web server
+	sudo firewall-cmd --add-service=http
+	
+	Permanent rule:
+		sudo firewall-cmd --add-service=http --permanent
+		
+	Reload firewall
+		sudo firewall-cmd --reload
+		
+7. Allow a Port: suppose port 8080/tcp is open
+
+	sudo firewall-cmd --add-port=8080/tcp
+	
+	Permanent:
+		sudo firewall-cmd --add-port=8080/tcp --permanent
+	
+	Reload:
+		sudo firewall-cmd --reload
+		
+8. Remove service:
+	sudo firewall-cmd --remove-service=http
+	
+	Permanent:
+		sudo firewall-cmd --remove-service=http --permanent
+		
+9. Remove Port:
+	sudo firewall-cmd --remove-port=8080/tcp
+	
+10. List all firewall rule:
+	sudo firewall-cmd --list-all
+	
+	Example output:
+		services: ssh http
+		port: 8080/tcp
+		
+11. Reload firewall rule:
+	After permanent changes:
+		sudo firewall-cmd --reload
+		
+		
+12. Real Life Example:
+
+	Admin install Apache web server:
+		sudo dnf install apache
+		
+	Start Service:
+		sudo systemctl start httpd
+		
+	Problem: But web server not opening.
+	
+	scenario: Check firewall - http port not allow
+	
+	Fix:
+		sudo firewall-cmd --add-service=http --permanent
+		sudo firewall-cmd --reload
+		
+	Now, Website start working.
+	
+	
+13. Real Lab Practice:
+	Step-1:
+		Check firewall status: sudo systemctl status firewalld
+		
+	Step-2:
+		Check allow services: sudo firewall-cmd --list-services
+		
+	Step-3:
+		Allow HTTP: sudo firewall-cmd --add-service=http -permanent
+		
+	Step-4:
+		Reload firewall: sudo firewall-cmd reload
+		
+	Step-5:
+		Verify: sudo firewall-cmd --list-all
+			
+			
+			
+14. Important command:
+
+	| Command                            | Purpose          |
+| ---------------------------------- | ---------------- |
+| `firewall-cmd --state`             | firewall status  |
+| `firewall-cmd --list-services`     | allowed services |
+| `firewall-cmd --add-service=http`  | allow service    |
+| `firewall-cmd --add-port=8080/tcp` | open port        |
+| `firewall-cmd --reload`            | reload firewall  |
+
+		
