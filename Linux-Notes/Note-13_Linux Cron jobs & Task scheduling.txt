@@ -1,0 +1,138 @@
+13. Linux cron jobs & task scheduling.
+
+	Linux allows administrator to automatically run tasks at schedule times. This is called task scheduling.
+	
+	Example:
+		a. Daily backups
+		b. Automatic log cleanup
+		c. Running scripts every hour
+		d. Restart service at night
+	** Linux uses Cron for this purpose
+	
+	
+1. What is cron?
+	Cron is a background service that executes scheduling commands.
+	
+	check crone service name:
+		command: crond
+		
+	Check cron service:
+		command: systemctl ststus crond
+		
+	Start cron service:
+		command: sudo systemctl start crond
+		
+	Enable at boot:
+		command: sudo systemctl enable crond
+		
+2. What is crontab?
+
+	Crontab = cron Table
+	
+	It contains the schedule and command to execute.
+	
+	to open crontab editor:
+		command: crontab -e
+		
+3. Cron job format:
+
+Cron job have " five " time fields.
+
+	Example: * * * * * command
+	
+	Meaning:
+		| Field | Meaning      |
+| ----- | ------------ |
+| 1     | Minute       |
+| 2     | Hour         |
+| 3     | Day of month |
+| 4     | Month        |
+| 5     | Day of week  |
+
+
+4. Example of cron job:
+	
+	Run every minute:
+		command: * * * * * date
+		
+	Run every day at 2 AM:
+		command: 0 2 * * * backup.sh
+		
+	Run every sunday:
+		command: 0 3 * * 0 cleanup.sh
+		
+5. List cron jobs:
+	crontab -l  # shows current user cron jobs.
+	
+6. Remove cron job: Removes all cron jobs
+	command: crontab -r
+	
+7. System cron directory:
+	System cron job are stored in:
+		command: /etc/crontab
+		
+	Other directories:
+		/etc/cron.hourly
+		/etc/cron.daily
+		/etc/cron.weekly
+		/etc/cron.monthly
+		
+	Example:
+		command: ls /etc/cron.daily
+		
+8. Cron job example:
+	Create scripts:
+		vi backup.sh
+		
+	Scripts content:
+		#!/bin/bash
+		tar -czf /backup/home_backup.tar.gz /home
+		
+	Make executable:
+		chmod +x backup.sh
+		
+	Schedule backup daily:
+		0 1 * * * /home/usr/backup.sh
+		
+	** this run everyday at 1 AM
+	
+9. Cron logs:
+	Check cron activity:
+		Command: grep cron /var/log/messages     or 	journalctl -u crond
+		
+10. Real life example:
+	Server admin needs daily log cleanup.
+		Create job: 
+			0 0 * * * rm -f /var/log/old_logs/*
+			
+	** runs every night at 12 AM.
+	
+11. Real Lab Practice:
+	Step-1: edit cron tab
+		crontab -e
+		
+	step-2: Add test job
+		* * * * * date >> /tmp/testcron.log
+		
+	Step-3: Check file
+		cat /tmp/testcron.log
+		
+	** we can see timestamp every minute.
+	
+	
+12. Important command:
+
+	| Command                  | Purpose            |
+| ------------------------ | ------------------ |
+| `crontab -e`             | edit cron jobs     |
+| `crontab -l`             | list cron jobs     |
+| `crontab -r`             | remove cron jobs   |
+| `systemctl status crond` | check cron service |
+| `journalctl -u crond`    | cron logs          |
+
+
+
+
+		
+	
+	

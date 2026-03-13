@@ -1,0 +1,135 @@
+12. Linux Log Management (journalctl & /var/log)
+
+Logs are records of system activities.
+Linux administrators use logs to troubleshoot problems, monitor servers, and check security events.
+
+Example logs included:
+	a. Login attampts
+	b. Service failure
+	c. Network activity
+	d. System errors
+	
+Most logs are stored in: /var/log
+
+1. What is log File?
+A log file records events happening in the system.
+
+Example entries:
+	Mar 13 10:10:01 server sshd[1234]: Accepted password for user
+	Mar 13 10:12:15 server httpd[2034]: Server started
+	Mar 13 10:13:20 server sshd[2055]: Failed password attempt
+	
+2. Log Directory:
+
+Check log directory: ls /var/log
+
+Common log files:
+	| File                | Purpose                     |
+| ------------------- | --------------------------- |
+| `/var/log/messages` | system messages             |
+| `/var/log/secure`   | login & authentication logs |
+| `/var/log/cron`     | scheduled jobs              |
+| `/var/log/dmesg`    | kernel messages             |
+| `/var/log/boot.log` | boot process                |
+
+
+3. View log file: use cat command
+	cat /var/log/messages
+	
+4. View logs page by page:
+	Use Less
+		less /var/log/messages
+	
+	Navigation:
+		a. space: next page
+		b. q: quit
+		
+5. View Last lines of log:
+	tail /var/log/messages
+	* show last 10 lines.
+	
+6. Monitor Logs in real time:
+	* very useful topic for admin
+	command: tail -f /var/log/messages
+	
+	Example output:
+		Mar 13 10:30:11 server sshd[3001]: Accepted password
+		Mar 13 10:30:45 server sshd[3002]: Failed login attempt
+		
+	Stop: CTRL + C
+	
+	
+7. What is journalctl?
+Modern Linux uses systemd journal to store logs.
+
+command: journalctl   # shows system logs managed by systemd
+
+8. View latest logs:
+	command: journalctl -xe  # used for troubleshooting errors
+	
+9. View logs for a service:
+	Example: ssh logs
+	command: journalctl -u sshd
+	
+	example: Apache logs
+	command: journalctl -u htpd
+	
+10. View recent logs : shows 20 lines
+	command: journalctl -n 20
+	
+11. Follow logs in real time:
+	similar to tail -f
+	
+	command: journalctl -f 
+	
+12. Check logs since boot:
+
+	Command: journalctl -b  # shows logs from the current system boot.
+	
+13. Real Life  Example (Server Troubleshooting)
+
+Problem: Web server not starting .
+
+Admin checks:
+	systemctl status httpd
+	
+Then check logs:
+	journalctl -xe
+	
+Find errors:
+	port 80 already in use
+	
+Admin stops conflicting service and restart apache.
+
+
+14. Real Lab Practice.
+
+	Step-1: check log directory
+		ls /var/log
+		
+	Step-2: View system logs
+		less /var/log/messages
+		
+	Step-3: Monitor logs
+		tail -f /var/log/messages
+		
+	Step-4: Check systemd logs
+		journalctl
+		
+	Step-5: Check SSH logs
+		journalctl -u sshd
+		
+		
+15 Important command:
+
+		| Command                 | Purpose              |
+| ----------------------- | -------------------- |
+| `ls /var/log`           | view log directory   |
+| `tail -f file`          | monitor logs         |
+| `journalctl`            | system logs          |
+| `journalctl -xe`        | troubleshooting logs |
+| `journalctl -u service` | service logs         |
+
+	
+	
+		
