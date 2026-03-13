@@ -1,0 +1,398 @@
+Project-1: Complete Linux Admin Practice Lab (30 Real Server Tasks)
+
+	1. Use & Group Management
+		Scenario: A new employee joined the company.
+		
+		Task: 
+		a. Create User : Suman.Mondal
+		b. Home Directory : /data/suman.mondal
+		c. Shell : bin/bash
+		
+		Commands used:
+			   a. sudo useradd suman.mondal -m -d /data/suman.mondal -s /bin/bash suman.mondal
+					Explanation:
+						Option						Meaning
+						-m							Create home directory
+						-d /data/suman.mondal		Custom home directory
+						-s /bin/bash 				Default login shell
+						suman.mondal				User Name
+			   b. sudo passwd suman.mondal
+			   c. id suman.mondal
+		
+		Output:
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo useradd  -m -d /data/suman.mondal -s /bin/bash suman.mondal
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo passwd suman.mondal
+			New password: 
+			BAD PASSWORD: The password contains the user name in some form
+			Retype new password: 
+			passwd: password updated successfully
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ id suman.mondal
+			[sumancse1990@mylab ~]$
+			uid=1001(suman.mondal) gid=1006(suman.mondal) groups=1006(suman.mondal)
+			[sumancse1990@mylab ~]$ 
+			
+	2. Create Admin Group:
+		 Scenario: 
+			a.Create a group for administrator
+			b.add the user suman.mondal
+			c. Check
+		
+		command used:
+				a. sudo groupadd Project_Admin
+				b. sudo usermod -aG Project_Admin suman.mondal
+				c. check : groups suman.mondal
+				
+		Output:
+			[sumancse1990@mylab ~]$ sudo groupadd Project_admin
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo usermod -aG Project_admin suman.mondal 
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ groups suman.mondal
+			suman.mondal : suman.mondal Project_admin
+			[sumancse1990@mylab ~]$
+
+	3. File Permission Task : 
+		 Scenario: Only the owner should rea/write a file
+			a. Create a file
+			b. Change permission to owner for read/write
+			c. Check
+			
+			
+		Command used:
+			a. touch secure.txt
+			b. sudo chmod 600 secure.txt
+			c. ls -lrth
+			
+		Output:
+			[sumancse1990@mylab ~]$ touch secure.txt
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo chmod 600 secure.txt
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ ls -lrth
+			total 0
+			-rw-------. 1 sumancse1990 sumancse1990 0 Mar 12 16:07 secure.txt
+			[sumancse1990@mylab ~]$ 
+			
+	4. Shared Directory (Real company scenario)
+		 Scenario: Developers share files in one directory
+			a. Create a /Project directory
+			b. Set group ownership
+			c. set permission with SGID
+			d. check
+			
+		Command used:
+			a. sudo mkdir /Project
+			b. sudo chown :Project_admin /Project
+			c. sudo chmod 2775 /Project
+			d. ls -ld /Project
+			
+		Output:
+			[sumancse1990@mylab ~]$ sudo mkdir /Project
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo chown :Project_admin /Project
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ sudo chmod 2775 /Project
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ ls -ld /Project
+			drwxrwsr-x. 2 root Project_admin 6 Mar 12 16:14 /Project
+			[sumancse1990@mylab ~]$ 
+			
+	5. Find Large file
+			Scenario: Server disk getting full
+			
+		Command used:
+			sudo find / -size +100M
+			
+		Output:
+			[sumancse1990@mylab ~]$ sudo find / -size +100M
+			/proc/kcore
+			find: ‘/proc/6408/task/6408/fd/6’: No such file or directory
+			find: ‘/proc/6408/task/6408/fdinfo/6’: No such file or directory
+			find: ‘/proc/6408/fd/5’: No such file or directory
+			find: ‘/proc/6408/fdinfo/5’: No such file or directory
+			/usr/lib64/google-cloud-sdk/bin/anthoscli
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ ls -lh /usr/lib64/google-cloud-sdk/bin/anthoscli
+			-rwxr-xr-x. 1 root root 133M Mar  9 19:31 /usr/lib64/google-cloud-sdk/bin/anthoscli
+			[sumancse1990@mylab ~]$ 
+			
+			
+			
+	6. Check disk usage
+		
+		Command used:
+			a. df -h
+			b. du -sh *
+			
+		Output:
+			[sumancse1990@mylab ~]$ df -h
+			Filesystem      Size  Used Avail Use% Mounted on
+			/dev/sda2        20G  2.8G   18G  14% /
+			devtmpfs        1.8G     0  1.8G   0% /dev
+			tmpfs           1.8G     0  1.8G   0% /dev/shm
+			efivarfs        256K   26K  226K  11% /sys/firmware/efi/efivars
+			tmpfs           731M  8.5M  722M   2% /run
+			tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+			/dev/sda1       200M  8.6M  192M   5% /boot/efi
+			tmpfs           1.0M     0  1.0M   0% /run/credentials/getty@tty1.service
+			tmpfs           1.0M     0  1.0M   0% /run/credentials/serial-getty@ttyS0.service
+			tmpfs           366M  4.0K  365M   1% /run/user/1000
+			[sumancse1990@mylab ~]$ 
+			[sumancse1990@mylab ~]$ du -sh *
+			0       secure.txt
+			[sumancse1990@mylab ~]$ 
+			
+			
+	7. Process Monitoring
+		Scenario: Server is slow
+		
+		Command used:
+			a. top
+			b. ps aux
+			c. sudo kill -9 PID  - force fully kill the process
+			
+	8. Service Management (httpd)
+		Scenario: start and stop the service
+		
+		command used:
+			a. sudo dnf install httpd
+			b. sudo systemctl start httpd
+			c. sudo systemctl stop httpd
+			d. systemctl status httpd
+			
+	9. Boot Service Enable (sshd)
+		Scenario: Enable service at Boot
+		
+		command used:
+			a. sudo systemctl enable sshd
+			b. systemctl status sshd
+			
+	10. Network Troubleshooting
+		Scenario: check network connectivity
+		
+		command used:
+			a. ping google.command
+			b. ip a 
+			
+		Output:
+			[sumancse1990@mylab ~]$ ping google.com
+			PING google.com (173.194.195.100) 56(84) bytes of data.
+			64 bytes from iw-in-f100.1e100.net (173.194.195.100): icmp_seq=1 ttl=115 time=0.687 ms
+			64 bytes from iw-in-f100.1e100.net (173.194.195.100): icmp_seq=2 ttl=115 time=0.476 ms
+			64 bytes from iw-in-f100.1e100.net (173.194.195.100): icmp_seq=3 ttl=115 time=0.472 ms
+			--- google.com ping statistics ---
+			3 packets transmitted, 3 received, 0% packet loss, time 2020ms
+			rtt min/avg/max/mdev = 0.472/0.545/0.687/0.100 ms
+			[sumancse1990@mylab ~]$ ip a
+			1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+			link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+			inet 127.0.0.1/8 scope host lo
+			valid_lft forever preferred_lft forever
+			inet6 ::1/128 scope host noprefixroute 
+			valid_lft forever preferred_lft forever
+			2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1460 qdisc mq state UP group default qlen 1000
+			link/ether 42:01:0a:80:00:1f brd ff:ff:ff:ff:ff:ff
+			altname enp0s4
+			altname ens4
+			altname enx42010a80001f
+			inet 10.128.0.31/32 scope global dynamic noprefixroute eth0
+			valid_lft 2987sec preferred_lft 2987sec
+			inet6 fe80::309:12c0:a20f:5a51/64 scope link noprefixroute 
+			valid_lft forever preferred_lft forever
+			[sumancse1990@mylab ~]$ 
+			
+	
+	11. Check open port
+		
+		command used:
+			ss -tulnp
+			
+		Output:
+			[sumancse1990@mylab ~]$ ss -tulnp
+			Netid           State            Recv-Q           Send-Q                     Local Address:Port                     Peer Address:Port          Process          
+			udp             UNCONN           0                0                              127.0.0.1:323                           0.0.0.0:*                              
+			udp             UNCONN           0                0                                  [::1]:323                              [::]:*                              
+			tcp             LISTEN           0                128                              0.0.0.0:22                            0.0.0.0:*                              
+			tcp             LISTEN           0                511                                    *:80                                  *:*                              
+			tcp             LISTEN           0                128                                 [::]:22                               [::]:*                              
+			[sumancse1990@mylab ~]$ 
+			
+	12. Create Archive Backup:
+		command used:
+			a. tar -cvf backup.tar /home
+			b. ls -lh /home/sumancse1990/backup.tar
+		Compress backup:
+			c. sudo tar -czvf backup.tar.gz /home
+			d. ls -ld /home/backup.tar.gz
+			
+		Output:
+			[sumancse1990@mylab ~]$ tar -cvf backup.tar /home
+			tar: Removing leading `/' from member names
+			/home/
+			/home/sumancse1990/
+			/home/sumancse1990/.bash_logout
+			/home/sumancse1990/.bash_profile
+			/home/sumancse1990/.bashrc
+			/home/sumancse1990/.ssh/
+			/home/sumancse1990/secure.txt
+			/home/sumancse1990/.config/
+			/home/sumancse1990/.config/procps/
+			/home/sumancse1990/.lesshst
+			tar: /home/sumancse1990/backup.tar: archive cannot contain itself; not dumped
+			[sumancse1990@mylab home]$ 
+			[sumancse1990@mylab home]$ ls -lh /home/sumancse1990/backup.tar
+			-rw-r--r--. 1 sumancse1990 sumancse1990 10K Mar 12 17:18 /home/sumancse1990/backup.tar
+			[sumancse1990@mylab home]$ 
+			[sumancse1990@mylab home]$ sudo tar -czvf backup.tar.gz /home
+			tar: Removing leading `/' from member names
+			/home/
+			/home/sumancse1990/
+			/home/sumancse1990/.bash_logout
+			/home/sumancse1990/.bash_profile
+			/home/sumancse1990/.bashrc
+			/home/sumancse1990/.ssh/
+			/home/sumancse1990/secure.txt
+			/home/sumancse1990/.config/
+			/home/sumancse1990/.config/procps/
+			/home/sumancse1990/.lesshst
+			/home/sumancse1990/backup.tar
+			/home/backup.tar.gz
+			tar: /home: file changed as we read it
+			[sumancse1990@mylab home]$ ls -ld /home/backup.tar.gz
+			-rw-r--r--. 1 root root 865 Mar 12 17:26 /home/backup.tar.gz
+			[sumancse1990@mylab home]$ 
+			
+			
+	13. Extract Backup
+		Command Used:
+			a. sudo tar -xvf backup.tar -C / # -C / = exact in root directory of the user
+			b. ls -l /home/sumancse1990
+			
+		Output:
+			[sumancse1990@mylab home]$ sudo tar -xvf backup.tar.gz -C /
+			home/
+			home/sumancse1990/
+			home/sumancse1990/.bash_logout
+			home/sumancse1990/.bash_profile
+			home/sumancse1990/.bashrc
+			home/sumancse1990/.ssh/
+			home/sumancse1990/secure.txt
+			home/sumancse1990/.config/
+			home/sumancse1990/.config/procps/
+			home/sumancse1990/.lesshst
+			home/sumancse1990/backup.tar
+			home/backup.tar.gz
+			[sumancse1990@mylab home]$ 
+			[sumancse1990@mylab home]$ ls -l /home/sumancse1990
+			total 12
+			-rw-r--r--. 1 sumancse1990 sumancse1990 10240 Mar 12 17:18 backup.tar
+			-rw-------. 1 sumancse1990 sumancse1990     0 Mar 12 16:07 secure.txt
+			[sumancse1990@mylab home]$ 
+			
+			
+	14. File Search
+	
+		Scenario: Find configaration file.
+		
+		Command used:
+			a. find /etc -name "*conf"
+			
+	15. Log Monitoring
+		
+		Scenario: Admin monitor logs for errors.
+		
+		Command Used:
+			a. sudo tail -f /var/log/messages
+			b. sudo tail -f /var/log/messages | grep ssh/   # filtering the error logs
+			c. sudo grep -i /var/log/messages    # shows only error logs
+			
+		Output:
+			[sumancse1990@mylab home]$ tail -f /var/log/messages
+			tail: cannot open '/var/log/messages' for reading: Permission denied
+			tail: no files remaining
+			[sumancse1990@mylab home]$ sudo tail -f /var/log/messages
+			Mar 12 17:25:25 mylab systemd[1]: gce-workload-cert-refresh.service: Deactivated successfully.
+			Mar 12 17:25:25 mylab systemd[1]: Finished gce-workload-cert-refresh.service - GCE Workload Certificate refresh.
+			Mar 12 17:33:10 mylab NetworkManager[935]: <info>  [1773336790.1566] dhcp4 (eth0): state changed new lease, address=10.128.0.31
+			[sumancse1990@mylab home]$ 
+			[sumancse1990@mylab home]$ sudo tail -f /var/log/messages | grep ssh
+		  ^C[sumancse1990@mylab home]$ 
+			[sumancse1990@mylab home]$ sudo grep -i error /var/log/messages 
+			Mar 12 15:33:16 mylab kdumpctl[2821]: dracut-install: ERROR: installing 'sgdisk'
+			Mar 12 15:33:16 mylab kdumpctl[2826]: dracut-install: ERROR: installing 'growpart'
+			[sumancse1990@mylab home]$ 
+		
+	16. Login History
+	
+		Command Used:
+			last
+		
+		Output:
+			[sumancse1990@mylab home]$ last
+			sumancse pts/0        35.235.244.33    Thu Mar 12 15:41   still logged in
+			reboot   system boot  6.12.0-212.el10. Thu Mar 12 15:32   still running
+
+			wtmp begins Thu Mar 12 15:32:59 2026
+			[sumancse1990@mylab home]$ 
+			
+			
+	17. Failed login Attempts
+	
+		Command used :
+			sudo cat /var/log/secure
+			
+			
+	18. Schedule Cron Job
+	
+		Scenario: Backup every day.
+		
+		Command used:
+			crontab -e 
+			
+		Example:
+			0 2 * * * tar -czvf /backup/home.tar.gz /home
+			
+			
+	19. Change file Ownership
+	
+		Command used:
+			chown suman.mondal:Project_admin file.txt
+			
+	20. Check memory usage:
+		
+		command used:
+			free -m
+			
+		Output:
+			[sumancse1990@mylab home]$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            3650         694        2473           8         773        2956
+Swap:              0           0           0
+[sumancse1990@mylab home]$ 
+		
+		
+
+			
+		
+		
+		
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+			
+	
+		
